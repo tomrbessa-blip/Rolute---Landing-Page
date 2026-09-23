@@ -1,0 +1,6 @@
+{
+  "name": "Revolut - Muito mais do que um simples banco",
+  "description": "Quer esteja no seu país ou no estrangeiro, deixe a Revolut superar as suas expectativas bancárias. Registe-se gratuitamente com um toque.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
