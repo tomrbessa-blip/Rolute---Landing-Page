@@ -1,0 +1,78 @@
+{
+  "entities": {
+    "CatalogoItem": {
+      "title": "CatalogoItem",
+      "description": "Item do catálogo de produtos e serviços para cálculo de propostas.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "nome": { "type": "string" },
+        "descricao": { "type": "string" },
+        "unidade": { "type": "string", "enum": ["unidade", "hora", "pacote", "mes"] },
+        "precoUnitarioCentimos": { "type": "number" },
+        "moeda": { "type": "string", "enum": ["EUR"] },
+        "ativo": { "type": "boolean" },
+        "condicoes": { "type": "string" }
+      },
+      "required": ["id", "nome", "descricao", "unidade", "precoUnitarioCentimos", "moeda", "ativo"]
+    },
+    "Pedido": {
+      "title": "Pedido",
+      "description": "Pedido de proposta submetido pelo cliente.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "nome": { "type": "string" },
+        "email": { "type": "string", "format": "email" },
+        "pedidoOriginal": { "type": "string" },
+        "criadoEm": { "type": "string" },
+        "atualizadoEm": { "type": "string" },
+        "estado": { "type": "string", "enum": ["Recebido", "Em análise", "Necessita de revisão", "Proposta criada", "Erro"] },
+        "interpretacao": { "type": "object" },
+        "informacaoEmFalta": { "type": "array" },
+        "motivoRevisao": { "type": "string" },
+        "propostaId": { "type": "string" },
+        "erro": { "type": "string" }
+      },
+      "required": ["id", "nome", "email", "pedidoOriginal", "criadoEm", "estado"]
+    },
+    "Proposta": {
+      "title": "Proposta",
+      "description": "Proposta comercial calculada e emitida pela aplicação.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "numeroProposta": { "type": "string" },
+        "pedidoId": { "type": "string" },
+        "criadaEm": { "type": "string" },
+        "validadeAte": { "type": "string" },
+        "resumoAmbito": { "type": "string" },
+        "itens": { "type": "array" },
+        "totalCentimos": { "type": "number" },
+        "condicoes": { "type": "string" },
+        "token": { "type": "string" },
+        "linkProposta": { "type": "string" },
+        "estadoNotificacao": { "type": "string", "enum": ["Por enviar", "Aceite pelo serviço", "Falhou", "Não configurado"] },
+        "notificacaoEmailId": { "type": "string" },
+        "notificacaoTentativaEm": { "type": "string" },
+        "notificacaoErro": { "type": "string" },
+        "propostaDemonstracao": { "type": "boolean" }
+      },
+      "required": ["id", "numeroProposta", "pedidoId", "criadaEm", "validadeAte", "itens", "totalCentimos", "token", "estadoNotificacao"]
+    }
+  },
+  "firestore": {
+    "/catalogo/{itemId}": {
+      "schema": "CatalogoItem",
+      "description": "Coleção do catálogo de produtos e serviços para cálculo de propostas."
+    },
+    "/pedidos/{pedidoId}": {
+      "schema": "Pedido",
+      "description": "Coleção de pedidos de proposta submetidos pelos clientes."
+    },
+    "/propostas/{propostaId}": {
+      "schema": "Proposta",
+      "description": "Coleção de propostas orçamentadas emitidas."
+    }
+  }
+}

@@ -35,6 +35,7 @@ export const Navbar: React.FC<NavbarProps> = ({
     { label: isPt ? 'Pessoal' : 'Personal', href: '#solucoes' },
     { label: isPt ? 'Empresas' : 'Business', href: '#publico' },
     { label: isPt ? 'Planos' : 'Plans', href: '#planos' },
+    { label: isPt ? 'Pedir Proposta' : 'Pedir Proposta', href: '#proposta' },
     { label: isPt ? 'Segurança' : 'Security', href: '#seguranca' },
     { label: isPt ? 'FAQ' : 'FAQ', href: '#faq' },
   ];

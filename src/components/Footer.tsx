@@ -80,6 +80,7 @@ export const Footer: React.FC<FooterProps> = ({ lang, darkMode, onOpenDownload }
                 <li><a href="#planos" className="hover:text-blue-600 transition-colors">Premium (9,99 €)</a></li>
                 <li><a href="#planos" className="hover:text-blue-600 transition-colors">Metal (17,99 €)</a></li>
                 <li><a href="#planos" className="hover:text-blue-600 transition-colors">Ultra (55 €)</a></li>
+                <li><a href="#proposta" className="text-blue-500 font-semibold hover:underline">{isPt ? 'Pedir Proposta' : 'Pedir Proposta'}</a></li>
               </ul>
             </div>
 
@@ -91,6 +92,11 @@ export const Footer: React.FC<FooterProps> = ({ lang, darkMode, onOpenDownload }
                 <li><a href="#seguranca" className="hover:text-blue-600 transition-colors">Rolute Secure 24/7</a></li>
                 <li><a href="#seguranca" className="hover:text-blue-600 transition-colors">{isPt ? 'Garantia até 100k €' : 'Deposit Guarantee'}</a></li>
                 <li><a href="#faq" className="hover:text-blue-600 transition-colors">{isPt ? 'Ajuda & FAQ' : 'Help & FAQ'}</a></li>
+                <li>
+                  <a href="/admin" className="text-blue-500 font-semibold hover:underline">
+                    {isPt ? 'Área de Administração (Admin)' : 'Admin Portal'}
+                  </a>
+                </li>
                 <li>
                   <button onClick={onOpenDownload} className="text-blue-600 font-semibold hover:underline">
                     {isPt ? 'Transferir App' : 'Download App'}

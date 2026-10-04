@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { Language } from './types';
 import { Navbar } from './components/Navbar';
 import { Hero } from './components/Hero';
@@ -7,26 +8,30 @@ import { Personas } from './components/Personas';
 import { Features } from './components/Features';
 import { InteractiveExchange } from './components/InteractiveExchange';
 import { Pricing } from './components/Pricing';
+import { ProposalForm } from './components/ProposalForm';
 import { FAQ } from './components/FAQ';
 import { FinalCTA } from './components/FinalCTA';
 import { Footer } from './components/Footer';
 import { DownloadModal } from './components/DownloadModal';
 import { SupportChatbot } from './components/SupportChatbot';
+import { ProposalView } from './pages/ProposalView';
+import { AdminDashboard } from './pages/AdminDashboard';
 
-export default function App() {
-  const [lang, setLang] = useState<Language>('pt');
-  // Default to sleek dark obsidian aesthetic
-  const [darkMode, setDarkMode] = useState<boolean>(true);
-  const [isDownloadOpen, setIsDownloadOpen] = useState<boolean>(false);
-
-  const toggleLanguage = () => {
-    setLang((prev) => (prev === 'pt' ? 'en' : 'pt'));
-  };
-
-  const toggleTheme = () => {
-    setDarkMode((prev) => !prev);
-  };
-
+function LandingPage({
+  lang,
+  darkMode,
+  toggleLanguage,
+  toggleTheme,
+  isDownloadOpen,
+  setIsDownloadOpen,
+}: {
+  lang: Language;
+  darkMode: boolean;
+  toggleLanguage: () => void;
+  toggleTheme: () => void;
+  isDownloadOpen: boolean;
+  setIsDownloadOpen: (open: boolean) => void;
+}) {
   return (
     <div
       className={`min-h-screen transition-colors duration-200 selection:bg-blue-600 selection:text-white ${
@@ -81,6 +86,9 @@ export default function App() {
           onOpenDownload={() => setIsDownloadOpen(true)}
         />
 
+        {/* Formulário de Pedido de Proposta (3 campos: Nome, Email, Pedido + 'Pedir Proposta') */}
+        <ProposalForm lang={lang} darkMode={darkMode} />
+
         {/* 5. FAQ (12 comprehensive questions) */}
         <FAQ
           lang={lang}
@@ -113,5 +121,56 @@ export default function App() {
       {/* Official Rolute Portugal AI Support Assistant Chatbot */}
       <SupportChatbot lang={lang} darkMode={darkMode} />
     </div>
+  );
+}
+
+export default function App() {
+  const [lang, setLang] = useState<Language>('pt');
+  const [darkMode, setDarkMode] = useState<boolean>(true);
+  const [isDownloadOpen, setIsDownloadOpen] = useState<boolean>(false);
+
+  const toggleLanguage = () => {
+    setLang((prev) => (prev === 'pt' ? 'en' : 'pt'));
+  };
+
+  const toggleTheme = () => {
+    setDarkMode((prev) => !prev);
+  };
+
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <LandingPage
+              lang={lang}
+              darkMode={darkMode}
+              toggleLanguage={toggleLanguage}
+              toggleTheme={toggleTheme}
+              isDownloadOpen={isDownloadOpen}
+              setIsDownloadOpen={setIsDownloadOpen}
+            />
+          }
+        />
+        <Route path="/proposta/:token" element={<ProposalView />} />
+        <Route path="/proposta/*" element={<ProposalView />} />
+        <Route path="/proposta" element={<ProposalView />} />
+        <Route path="/admin" element={<AdminDashboard />} />
+        <Route
+          path="*"
+          element={
+            <LandingPage
+              lang={lang}
+              darkMode={darkMode}
+              toggleLanguage={toggleLanguage}
+              toggleTheme={toggleTheme}
+              isDownloadOpen={isDownloadOpen}
+              setIsDownloadOpen={setIsDownloadOpen}
+            />
+          }
+        />
+      </Routes>
+    </BrowserRouter>
   );
 }

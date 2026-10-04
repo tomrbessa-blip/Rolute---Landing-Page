@@ -276,6 +276,40 @@ export const Pricing: React.FC<PricingProps> = ({ lang, darkMode, onOpenDownload
             );
           })}
         </div>
+
+        {/* Bespoke / Enterprise Request Callout */}
+        <div
+          className={`mt-12 p-6 sm:p-8 rounded-3xl border flex flex-col md:flex-row items-center justify-between gap-6 ${
+            darkMode
+              ? 'bg-neutral-900/40 border-neutral-800 text-neutral-300'
+              : 'bg-white border-slate-200 text-slate-700 shadow-sm'
+          }`}
+        >
+          <div className="space-y-1 text-center md:text-left">
+            <h4
+              className={`text-base sm:text-lg font-bold font-display ${
+                darkMode ? 'text-white' : 'text-slate-900'
+              }`}
+            >
+              {isPt
+                ? 'Necessita de condições especiais para a sua empresa ou equipa?'
+                : 'Need custom terms for your business or corporate team?'}
+            </h4>
+            <p className="text-xs sm:text-sm text-neutral-400">
+              {isPt
+                ? 'Criamos propostas à medida com limites de câmbio exclusivos, cartões múltiplos e suporte dedicado.'
+                : 'We build tailored proposals with dedicated account management and custom exchange pricing.'}
+            </p>
+          </div>
+
+          <a
+            href="#proposta"
+            className="shrink-0 px-6 py-3 rounded-full bg-blue-600 hover:bg-blue-500 text-white font-bold text-xs sm:text-sm transition-all shadow-md flex items-center gap-2 group cursor-pointer"
+          >
+            <span>{isPt ? 'Pedir Proposta Sob Medida' : 'Request Custom Proposal'}</span>
+            <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+          </a>
+        </div>
       </div>
     </section>
   );
